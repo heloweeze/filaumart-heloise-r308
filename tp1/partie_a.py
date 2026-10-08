@@ -1,55 +1,61 @@
 # Partie A - Dictionnaire d'étudiants
 
-# 1. Création du dictionnaire étudiants
-etudiants = {} 
 
-etudiants["Alice"] = 12.0
-etudiants["Bob"] = 15.0
-etudiants["Claire"] = 9.5
+# Création du dictionnaire
 
-# 2.1 Création de ajouter_etudiant
+etudiants = {
+    "Alice": 12.0,
+    "Bob": 15.0,
+    "Claire": 9.5
+}
+
+
+# Gestion des étudiants
 
 def ajouter_etudiant(d, nom, note):
     """
-    Ajoute ou met à jour un étudiant.
+    Ajoute un étudiant au dictionnaire ou met à jour sa note.
 
-    d : dictionnaire des étudiants
-    nom : nom de l'étudiant
-    note : note de l'étudiant
+    Paramètres :
+        d (dict) : dictionnaire des étudiants.
+        nom (str) : nom de l'étudiant.
+        note (float) : note de l'étudiant.
     """
     d[nom] = note
 
-# ajouter_etudiant(etudiants, "David", 14.0)
-
-# 2.2 Création de moyenne_classe
 
 def moyenne_classe(d):
     """
-    Calcule et retourne la moyenne des notes de la classe.
-    """
+    Calcule la moyenne des notes de la classe.
 
-    # gestion du dictionnaire vide
+    Paramètre :
+        d (dict) : dictionnaire contenant les étudiants et leurs notes.
+
+    Retourne :
+        float : moyenne des notes.
+        None : si le dictionnaire est vide.
+    """
     if not d:
         return None
 
-    # calcul de la somme
     somme = 0
 
     for note in d.values():
         somme += note
 
-    # calcul de la moyenne
-    moyenne = somme / len(d)
+    return somme / len(d)
 
-    return moyenne
-
-print("La moyenne de classe est :", moyenne_classe(etudiants))
-
-# 2.3 Création de meilleur_etudiant
 
 def meilleur_etudiant(d):
     """
-    Recherche et retourne l'étudiant ayant la meilleure note.
+    Recherche l'étudiant ayant obtenu la meilleure note.
+
+    Paramètre :
+        d (dict) : dictionnaire contenant les étudiants et leurs notes.
+
+    Retourne :
+        tuple : nom et note du meilleur étudiant.
+        None : si le dictionnaire est vide.
     """
     if not d:
         return None
@@ -57,30 +63,45 @@ def meilleur_etudiant(d):
     meilleur_nom = None
     meilleure_note = None
 
-    # Parcourt les étudiants et leurs notes
-    for nom, note in d.items(): 
+    for nom, note in d.items():
         if meilleure_note is None or note > meilleure_note:
             meilleur_nom = nom
             meilleure_note = note
 
-    return (meilleur_nom, meilleure_note)
+    return meilleur_nom, meilleure_note
 
-print("Le meilleur étudiant de la classe est :", meilleur_etudiant(etudiants))
 
-# 3. Sauvegarde et rechargement dans un fichier texte
-with open("etudiants.txt", "w") as f:
+# Affichage des résultats
+
+print("Moyenne de la classe :", moyenne_classe(etudiants))
+print("Meilleur étudiant :", meilleur_etudiant(etudiants))
+
+
+# Sauvegarde dans un fichier texte
+
+with open("etudiants.txt", "w") as fichier:
     for nom, note in etudiants.items():
-        f.write(f"{nom}:{note}\n")
+        fichier.write(f"{nom}:{note}\n")
+
+
+# Chargement des étudiants depuis le fichier
 
 def charger_etudiants():
     """
-    Charge les étudiants depuis le fichier texte.
+    Charge les étudiants enregistrés dans le fichier texte.
+
+    Les lignes mal formées ou contenant une note invalide
+    sont ignorées afin d'éviter une erreur du programme.
+
+    Retourne :
+        dict : dictionnaire des étudiants chargés.
     """
     etudiants_charges = {}
 
     try:
-        with open("etudiants.txt", "r") as f:
-            for ligne in f:
+        with open("etudiants.txt", "r") as fichier:
+
+            for ligne in fichier:
                 ligne = ligne.strip()
 
                 if ":" not in ligne:
@@ -90,6 +111,7 @@ def charger_etudiants():
 
                 try:
                     etudiants_charges[nom] = float(note)
+
                 except ValueError:
                     continue
 
@@ -98,5 +120,9 @@ def charger_etudiants():
 
     return etudiants_charges
 
+
+# Vérification du chargement
+
 etudiants_recharges = charger_etudiants()
-print("La liste des étudiants rechargés :", etudiants_recharges)
+
+print("Étudiants rechargés :", etudiants_recharges)

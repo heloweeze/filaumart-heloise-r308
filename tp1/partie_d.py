@@ -20,9 +20,6 @@ def choisir_mot(liste):
     Retourne :
         str : mot choisi aléatoirement en majuscules.
     """
-
-    # random.choice() choisit un élément au hasard dans la liste.
-    # upper() transforme le mot en majuscules.
     return random.choice(liste).upper()
 
 
@@ -38,8 +35,6 @@ def creer_masque(mot):
     Retourne :
         list : liste de "_" de même longueur que le mot.
     """
-
-    # len() donne le nombre de caractères du mot.
     return ["_"] * len(mot)
 
 
@@ -62,23 +57,16 @@ while erreurs < 7 and "_" in masque:
 
     lettre = input("Proposez une lettre : ").strip().upper()
 
-    # strip() supprime les espaces avant et après le texte.
-    # upper() transforme la lettre en majuscule.
-
-    # isalpha() vérifie que le texte contient uniquement des lettres.
-    # len() vérifie ici que le joueur a entré une seule lettre.
     if len(lettre) != 1 or not lettre.isalpha():
         print("Veuillez entrer une seule lettre.")
         continue
 
-    # Vérifie si la lettre a déjà été proposée.
     if lettre in lettres_proposees:
         print("Vous avez déjà proposé cette lettre.")
         continue
 
     lettres_proposees.append(lettre)
 
-    # Vérifie si la lettre existe dans le mot secret.
     if lettre in mot_secret:
 
         for i in range(len(mot_secret)):

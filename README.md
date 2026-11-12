@@ -1,12 +1,4 @@
-# TP3 - Gestion d'une bibliothèque
-
-## Description
-
-Programme Python de gestion d'une bibliothèque.
-
-## Prérequis
-
-- Python 3.10 ou supérieur
+# TPs R.308
 
 ## Lancer le programme
 
@@ -37,8 +29,3 @@ python tp3/partie_d.py
 - partie_c.py : Persistance des données
 - partie_d.py : Programme principal
 - livres.csv : Partie E Extensions
-
-## Sauvegarde
-
-Les données sont enregistrées dans le fichier
-tp3/livres.csv lors du choix 6.
